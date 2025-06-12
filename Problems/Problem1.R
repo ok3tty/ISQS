@@ -1,6 +1,7 @@
 library(shiny)
 library(DT)
 
+
 ui <- fluidPage(
     DTOutput("table"),
     verbatimTextOutput("summary"),  # Add this to show summary stats
@@ -8,6 +9,7 @@ ui <- fluidPage(
     verbatimTextOutput("myprintC"),   # Add this to show z-scores
     verbatimTextOutput("myprintD")   # Add this to show correlation matrix
 )
+
 
 server <- function(input, output) {
     track <- read.csv("https://raw.githubusercontent.com/EricBrownTTU/ISQS5346/main/menstrack.csv")
@@ -20,6 +22,18 @@ server <- function(input, output) {
     #     statistics: mean, median, variance, standard deviation
 
     # Create a function to compute summary statistics
+    # mean() 
+    # median()
+    # data 
+    # data[]
+
+    # list of numbers 
+    data <- array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    # data = [1,2,3,4,5,5]
+    # data[2] = 3
+
+    data <-c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
     summary_stats <- function(data, column) {
         mean_val <- mean(data[[column]], na.rm = TRUE)
         median_val <- median(data[[column]], na.rm = TRUE)
@@ -27,6 +41,7 @@ server <- function(input, output) {
         sd_val <- sd(data[[column]], na.rm = TRUE)
         return(c(mean = mean_val, median = median_val, variance = variance_val, sd = sd_val))
     }
+
 
     output$summary <- renderPrint({
         hundred_meter_stats <- summary_stats(track, "m100")
